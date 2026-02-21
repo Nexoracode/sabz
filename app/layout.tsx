@@ -1,9 +1,8 @@
 import { Metadata } from "next"
-import { Vazirmatn } from 'next/font/google'
+import localFont from 'next/font/local';
 
-const myFont = Vazirmatn({
-    subsets: ['latin'],
-    variable: '--font-vazir',
+const myFont = localFont({
+    src: './../public/iranyekan.woff2',
 })
 
 export const metadata: Metadata = {
