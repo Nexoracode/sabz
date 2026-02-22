@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import './../globals.css';
-import { Header } from '@/components/layout/index';
+import { Header } from '@/components/shared/index';
 
 export const metaData: Metadata = {
     title: 'آکادمی آموزش برنامه نویسی سبز لرن',
