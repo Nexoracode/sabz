@@ -1,8 +1,5 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import './../globals.css';
-import Link from 'next/link';
-import { LuShoppingBasket } from 'react-icons/lu'
 import { Header } from '@/components/layout/index';
 
 export const metaData: Metadata = {
