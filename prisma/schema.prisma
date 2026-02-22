@@ -5,21 +5,21 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id String @id @default(cuid())
-  name String
-  email String @unique
-  password String?
-  role Role @default(STUDENT)
-  image String?
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String?
+  role      Role     @default(STUDENT)
+  image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -27,52 +27,52 @@ model User {
 }
 
 model Course {
-  id String @id @default(cuid())
-  title String
-  slug String @unique
-  description String @db.Text
-  thumbnail String?
-  price Decimal @default(0)
-  isPublished Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  thumbnail   String?
+  price       Decimal  @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  sections Section[]
+  sections   Section[]
   enrollment Enrollment[]
 }
 
 model Section {
-  id String @id @default(cuid())
-  title String
-  order Int
+  id       String @id @default(cuid())
+  title    String
+  order    Int
   courseId String
 
-  course Course @relation(fields: [courseId] , references: [id] , onDelete: Cascade)
+  course Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lesson Lesson[]
 }
 
 model Lesson {
-    id String @id @default(cuid())
-    title String
-    videourl String?
-    duration Int?
-    order Int
-    isFree Boolean @default(false)
-    sectionId String
+  id        String  @id @default(cuid())
+  title     String
+  videourl  String?
+  duration  Int?
+  order     Int
+  isFree    Boolean @default(false)
+  sectionId String
 
-    section Section @relation(fields: [sectionId] , references: [id] , onDelete: Cascade)
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 }
 
 model Enrollment {
-   id String @id @default(cuid())
-   userId String
-   courseId String
-   createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
 
-   user User @relation(fields: [userId] , references: [id])
-   course Course @relation(fields: [courseId] , references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
 
-   @@unique([userId , courseId])
+  @@unique([userId, courseId])
 }
 
 enum Role {

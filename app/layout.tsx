@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { SessionProvider } from "next-auth/react";
 import localFont from 'next/font/local';
 
 const myFont = localFont({
@@ -14,7 +15,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" dir="rtl">
             <body className={`${myFont.className} bg-gray-100`}>
-                <main>{children}</main>
+                <SessionProvider>
+                    {children}
+                </SessionProvider>
             </body>
         </html>
     )
