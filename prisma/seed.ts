@@ -1,6 +1,35 @@
 import { prisma } from "@/lib/prisma"
-
+import { Role } from "@prisma/client"
+import bcrypt from "bcryptjs"
 async function main() {
+
+    const instructors = await Promise.all([
+        prisma.user.upsert({
+            where: { email: "ali@academy.com" },
+            update: {},
+            create: {
+                name: "علی محمدی",
+                email: "ali@academy.com",
+                password: await bcrypt.hash("123456", 12),
+                role: Role.INSTRUCTOR,
+                title: "مدرس فرانت‌اند",
+                bio: "بیش از ۵ سال تجربه در توسعه فرانت‌اند با React و Next.js",
+            },
+        }),
+        prisma.user.upsert({
+            where: { email: "sara@academy.com" },
+            update: {},
+            create: {
+                name: "سارا احمدی",
+                email: "sara@academy.com",
+                password: await bcrypt.hash("123456", 12),
+                role: Role.INSTRUCTOR,
+                title: "مدرس بک‌اند",
+                bio: "متخصص Node.js و معماری میکروسرویس",
+            },
+        }),
+    ])
+
     // دسته‌بندی‌ها
     const categories = await Promise.all([
         prisma.category.upsert({

@@ -20,16 +20,20 @@ model User {
   password  String?
   role      Role     @default(STUDENT)
   image     String?
+  bio       String?  @db.Text
+  title     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   enrollment Enrollment[]
+  courses    Course[]
 }
 
 model Category {
   id      String   @id @default(cuid())
   name    String   @unique
   slug    String   @unique
+  image   String?
   courses Course[]
 }
 
@@ -43,10 +47,15 @@ model Course {
   isPublished Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  categoryId  String?
 
-  category   Category?    @relation(fields: [categoryId], references: [id])
-  sections   Section[]
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  intstructorId String?
+  instructor    User?   @relation(fields: [intstructorId], references: [id])
+
+  sections Section[]
+
   enrollment Enrollment[]
 }
 

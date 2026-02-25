@@ -1,13 +1,16 @@
+import { HTMLAttributes } from "react";
+
 type Props = {
     text: string;
     colorText: string;
     leftWidget: React.ReactNode,
-    children: React.ReactNode
+    children: React.ReactNode,
+    className?: string | null
 }
 
-export default function DeviderButton({ text, colorText, leftWidget, children }: Props) {
+export default function DeviderButton({ text, colorText, leftWidget, children, className }: Props) {
     return (
-        <section className="flex flex-col gap-6">
+        <section className={`flex flex-col gap-6 mt-24 ${className}`}>
             <div className="flex items-center justify-between">
                 <div className="flex items-center justify-start gap-1 text-2xl font-bold min-w-fit">
                     <h2 className="">{text}</h2>
@@ -18,7 +21,9 @@ export default function DeviderButton({ text, colorText, leftWidget, children }:
                     {leftWidget}
                 </div>
             </div>
-            {children}
+            <div className="flex felx-row justify-start items-center gap-6">
+                {children}
+            </div>
         </section>
     )
 }
